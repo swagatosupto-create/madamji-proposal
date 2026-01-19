@@ -55,18 +55,7 @@ button{
     margin-bottom:12px;
 }
 
-/* Dancing character */
-.sticker{
-    width:160px;
-    animation:dance 1.6s infinite ease-in-out;
-}
-@keyframes dance{
-    0%{transform:translateY(0)}
-    50%{transform:translateY(-12px)}
-    100%{transform:translateY(0)}
-}
-
-/* Photo reveal */
+/* Photo */
 .photoFrame{
     width:220px;
     height:300px;
@@ -83,13 +72,25 @@ button{
     height:100%;
     object-fit:cover;
 }
+.photoText{
+    margin-top:14px;
+    max-width:80%;
+    line-height:1.7;
+    font-size:0.95em;
+    opacity:0;
+    animation:fadeIn 2s ease forwards;
+    animation-delay:1.2s;
+}
+@keyframes fadeIn{
+    to{opacity:1}
+}
 
 /* Envelope */
 .envelope{
     position:absolute;
-    bottom:-220px;
-    width:300px;
-    height:200px;
+    bottom:-240px;
+    width:320px;
+    height:210px;
     animation:riseUp 2s ease forwards;
     cursor:pointer;
 }
@@ -101,24 +102,24 @@ button{
     width:100%;
     height:100%;
     background:linear-gradient(135deg,#ffe0ea,#ffb3c6);
-    border-radius:16px;
+    border-radius:18px;
+    box-shadow:0 20px 45px rgba(255,100,130,.55);
     position:relative;
-    box-shadow:0 15px 40px rgba(255,100,130,.5);
 }
 
 .env-lid{
     position:absolute;
-    top:0;
-    left:0;
+    top:0;left:0;
     width:100%;
-    height:50%;
+    height:55%;
     background:#ff8fa3;
-    border-radius:16px 16px 0 0;
+    border-radius:18px 18px 0 0;
     transform-origin:top;
-    transition:transform 1.3s ease;
+    transition:transform 1.2s ease;
 }
-.open .env-lid{
-    transform:rotateX(-150deg);
+
+.envelope.open .env-lid{
+    transform:rotateX(-160deg);
 }
 
 /* Letter */
@@ -132,7 +133,7 @@ button{
     line-height:1.9;
     opacity:0;
 }
-.show{
+#finalMessage.show{
     animation:fadeUp 2.5s forwards;
 }
 @keyframes fadeUp{
@@ -143,7 +144,6 @@ button{
 
 <body>
 
-<!-- MUSIC -->
 <audio id="loveMusic" loop src="love.mp3"></audio>
 <audio id="sadMusic" loop src="sad.mp3"></audio>
 
@@ -152,9 +152,7 @@ button{
     <div id="typingName"></div>
     <p>
         ১৪ই ফেব্রুয়ারি শুধু একটি তারিখ নয়<br>
-        এটি আমার হৃদয়ের গভীর অনুভূতির দিন<br><br>
-        আপনার দিকে তাকালেই আমার মনে হয়<br>
-        এই পৃথিবী একটু বেশি সুন্দর হয়ে যায়<br><br>
+        এটি আমার হৃদয়ের নীরব স্বীকারোক্তি<br><br>
         আপনি কি আমার অনুভূতিগুলো গ্রহণ করবেন?
     </p>
     <button class="yes" onclick="yesClick()">YES</button>
@@ -165,23 +163,17 @@ button{
 <div class="page bg7 hidden" id="pageNo">
     <p>
         আপনি জানেন আমি আপনাকে কতটা ভালোবাসি<br><br>
-        যদি কখনো আপনার মনে আমার জন্য<br>
-        ভালোবাসা না-ও জন্মায়<br><br>
-        তবুও আমার অনুভূতিগুলো কখনো বদলাবে না<br>
-        কারণ আপনাকে ভালোবাসা আমার ইচ্ছা নয়,<br>
-        এটি আমার স্বভাব
+        আপনার অনুভূতি যাই হোক,<br>
+        আমার ভালোবাসা কখনো কমবে না
     </p>
     <button onclick="backToStart()">ফিরে যান</button>
 </div>
 
 <!-- PAGE 2 -->
 <div class="page bg2 hidden" id="page2">
-    <img class="sticker"
-     src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif">
     <p>
         আপনার “YES” বলা মুহূর্তটি<br>
-        আমার জীবনের সবচেয়ে সুন্দর স্মৃতি হয়ে থাকবে<br><br>
-        এই মুহূর্ত আমি সারাজীবন মনে রাখবো
+        আমার জীবনের সবচেয়ে সুন্দর স্মৃতি
     </p>
     <button onclick="goPage(3)">Next</button>
 </div>
@@ -190,6 +182,13 @@ button{
 <div class="page bg3 hidden" id="page3">
     <div class="photoFrame">
         <img src="madamji.jpg">
+    </div>
+    <div class="photoText">
+        এই ছবিটা আমার সবচেয়ে প্রিয়<br>
+        কারণ এখানে আপনাকে ঠিক যেমন দেখায়,<br>
+        তেমনটাই আপনি — শান্ত, সুন্দর আর অনন্য<br><br>
+        এই ছবিটা দেখলেই আমার মনে হয়<br>
+        সৌন্দর্যের সংজ্ঞা বুঝি এটাই
     </div>
     <button onclick="goPage(4)">Next</button>
 </div>
@@ -205,17 +204,15 @@ button{
 <div class="page bg5 hidden" id="page5">
     <p>
         Madam Ji<br><br>
-        আমি আপনাকে এত গভীরভাবে ভালোবাসি<br>
-        যে শব্দে প্রকাশ করা সম্ভব নয়<br><br>
-        আমার প্রতিটা স্বপ্ন,<br>
-        প্রতিটা প্রার্থনায় শুধু আপনি
+        আমার ভালোবাসা শব্দে ধরা যায় না<br>
+        তবুও প্রতিটি শব্দে আপনি
     </p>
     <button onclick="goPage(6)">শেষ চিঠি</button>
 </div>
 
 <!-- PAGE 6 -->
 <div class="page bg6 hidden" id="page6">
-    <div class="envelope" onclick="openEnvelope()">
+    <div class="envelope" id="envelope">
         <div class="env-body">
             <div class="env-lid"></div>
         </div>
@@ -224,9 +221,9 @@ button{
     <div id="finalMessage">
         Madam Ji<br><br>
         আমি আপনাকে শুধু ভালোবাসি না,<br>
-        আমি আপনাকে আমার আগামী দিনের অংশ ভাবি<br><br>
-        যদি কখনো আপনার জীবনে কেউ নিঃশর্তভাবে<br>
-        পাশে থাকতে চায়,<br>
+        আমি আপনাকে আমার আগামীর ঠিকানা ভাবি<br><br>
+        যদি কখনো নিঃশর্তভাবে কেউ<br>
+        আপনার পাশে থাকতে চায়,<br>
         সে আমি<br><br>
         — Swagat
         <br><br>
@@ -288,21 +285,25 @@ function backToStart(){
  startTyping();
 }
 
-/* Restart from last page */
+/* Restart */
 function restart(){
- loveMusic.pause(); loveMusic.currentTime=0;
- sadMusic.pause(); sadMusic.currentTime=0;
+ loveMusic.pause(); sadMusic.pause();
+ loveMusic.currentTime=0; sadMusic.currentTime=0;
  goPage(1);
  startTyping();
 }
 
-/* Envelope */
-function openEnvelope(){
- document.querySelector(".envelope").classList.add("open");
+/* Envelope open – FIXED */
+let opened=false;
+const envelope=document.getElementById("envelope");
+envelope.onclick=()=>{
+ if(opened) return;
+ opened=true;
+ envelope.classList.add("open");
  setTimeout(()=>{
   finalMessage.classList.add("show");
  },900);
-}
+};
 
 /* Countdown */
 function startCountdown(){
