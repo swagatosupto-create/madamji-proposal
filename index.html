@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<title>For Madam Ji</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{box-sizing:border-box}
+html,body{
+    margin:0;
+    padding:0;
+    height:100%;
+    font-family:'Segoe UI',sans-serif;
+    overflow:hidden;
+}
+body{background:#000}
+
+/* Pages */
+.page{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:#fff;
+    transition:opacity 1s;
+}
+.hidden{opacity:0;pointer-events:none}
+
+/* Backgrounds */
+.bg1{background:linear-gradient(135deg,#ff8fa3,#ffc2d1);}
+.bg2{background:linear-gradient(135deg,#ff6f91,#ffb3c6);}
+.bg3{background:radial-gradient(circle,#200,#500);}
+.bg4{background:linear-gradient(135deg,#ff4d6d,#c9184a);}
+.bg5{background:linear-gradient(135deg,#3a0ca3,#7209b7);}
+.bg6{background:#000;}
+.bg7{background:linear-gradient(135deg,#ffd6e0,#fff1f5);}
+
+/* Buttons */
+button{
+    padding:12px 32px;
+    border:none;
+    border-radius:30px;
+    margin-top:18px;
+    font-size:1em;
+    cursor:pointer;
+}
+.yes{background:#ff4d6d;color:#fff}
+.no{background:#fff;color:#ff4d6d}
+
+/* Typing name */
+#typingName{
+    font-size:2.6em;
+    font-weight:700;
+}
+
+/* Cute dancing character */
+.sticker{
+    width:160px;
+    animation:dance 1.8s infinite ease-in-out;
+}
+@keyframes dance{
+    0%{transform:translateY(0) rotate(0)}
+    25%{transform:translateY(-8px) rotate(-4deg)}
+    50%{transform:translateY(0) rotate(0)}
+    75%{transform:translateY(-8px) rotate(4deg)}
+}
+
+/* Heart photo */
+.photoHeart{
+    width:180px;height:180px;
+    position:relative;
+    transform:rotate(-45deg);
+    background:#ff4d6d;
+}
+.photoHeart::before,
+.photoHeart::after{
+    content:"";
+    position:absolute;
+    width:180px;height:180px;
+    background:#ff4d6d;
+    border-radius:50%;
+}
+.photoHeart::before{top:-90px}
+.photoHeart::after{left:90px}
+.photoHeart img{
+    width:130px;height:130px;
+    position:absolute;
+    top:25px;left:25px;
+    border-radius:50%;
+    transform:rotate(45deg);
+    object-fit:cover;
+    border:4px solid #fff;
+}
+
+/* Envelope */
+.envelope-wrapper{
+    position:absolute;
+    bottom:15%;
+    width:280px;height:180px;
+    perspective:900px;
+    cursor:pointer;
+}
+.envelope{
+    width:100%;height:100%;
+    position:relative;
+    animation:softPulse 2s infinite;
+}
+@keyframes softPulse{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.02)}
+}
+.env-back{
+    position:absolute;
+    width:100%;height:100%;
+    background:#ffd6e0;
+    border-radius:10px;
+}
+.env-front{
+    position:absolute;
+    width:100%;height:100%;
+    background:#ffb3c6;
+    clip-path:polygon(0 100%,50% 55%,100% 100%);
+    bottom:0;
+    z-index:2;
+}
+.env-flap{
+    position:absolute;
+    width:100%;height:100%;
+    background:#ff8fa3;
+    clip-path:polygon(0 0,100% 0,50% 50%);
+    transform-origin:top;
+    transition:transform 1.2s ease;
+    z-index:3;
+}
+.open .env-flap{
+    transform:rotateX(-180deg);
+}
+.env-text{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:#7a003c;
+    font-size:.9em;
+    z-index:4;
+    padding:12px;
+}
+.lock{
+    font-size:.75em;
+    margin-top:8px;
+}
+
+/* Letter */
+#finalMessage{
+    position:absolute;
+    bottom:6%;
+    max-width:85%;
+    opacity:0;
+    color:#ffe3ed;
+    background:rgba(0,0,0,.65);
+    padding:20px;
+    border-radius:16px;
+    line-height:1.7;
+}
+.show{
+    animation:fadeUp 3s forwards;
+}
+@keyframes fadeUp{
+    from{opacity:0;transform:translateY(30px)}
+    to{opacity:1;transform:translateY(0)}
+}
+</style>
+</head>
+
+<body>
+
+<!-- Background music -->
+<audio id="bgMusic" loop>
+  <source src="love.mp3" type="audio/mpeg">
+</audio>
+
+<!-- PAGE 1 -->
+<div class="page bg1" id="page1">
+    <div id="typingName"></div>
+    <p>
+        ১৪ই ফেব্রুয়ারি শুধু একটি দিন নয়<br>
+        এটি আমার অনুভূতির প্রকাশ<br><br>
+        আপনি কি আমার ভালোবাসা গ্রহণ করবেন
+    </p>
+    <button class="yes" onclick="goPage(2)">YES</button>
+    <button class="no" onclick="alert('একবার আর ভাবুন Madam Ji')">NO</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page bg2 hidden" id="page2">
+    <img class="sticker"
+     src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif">
+    <p>
+        আপনার YES বলা মুহূর্তটি<br>
+        আমার জীবনের সবচেয়ে সুন্দর স্মৃতি
+    </p>
+    <button onclick="goPage(3)">Next</button>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page bg3 hidden" id="page3">
+    <div class="photoHeart">
+        <img src="madamji.jpg">
+    </div>
+    <button onclick="goPage(4)">Next</button>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page bg4 hidden" id="page4">
+    <h2>Valentine Countdown</h2>
+    <h1 id="countdown"></h1>
+    <button onclick="goPage(5)">Next</button>
+</div>
+
+<!-- PAGE 5 -->
+<div class="page bg5 hidden" id="page5">
+    <p>
+        Madam Ji<br><br>
+        আমি আপনাকে এতটাই ভালোবাসি যে<br>
+        এই পৃথিবীতে কেউ আপনাকে<br>
+        আমার মতো করে ভালোবাসতে পারবে না
+    </p>
+    <button onclick="goPage(6)">Forever</button>
+</div>
+
+<!-- PAGE 6 -->
+<div class="page bg6 hidden" id="page6">
+
+<div class="envelope-wrapper" onclick="heartbeatUnlock()">
+    <div class="envelope" id="env">
+        <div class="env-back"></div>
+        <div class="env-flap"></div>
+        <div class="env-front"></div>
+        <div class="env-text">
+            আপনার জন্য কিছু বিশেষ আছে<br>
+            হৃদয়ের স্পন্দনের সাথে ক্লিক করুন
+            <div class="lock" id="lockText">Heartbeat 0 / 3</div>
+        </div>
+    </div>
+</div>
+
+<div id="finalMessage">
+    Madam Ji<br><br>
+    আমি আপনাকে শুধু ভালোবাসি না<br>
+    আমি আপনাকে আমার ভবিষ্যৎ ভাবি<br><br>
+    আমার প্রতিটা স্বপ্নে<br>
+    প্রতিটা প্রার্থনায়<br>
+    প্রতিটা হৃদস্পন্দনে শুধু আপনি<br><br>
+    Swagat
+</div>
+
+</div>
+
+<!-- PAGE 7 -->
+<div class="page bg7 hidden" id="page7">
+    <h2>YES স্মৃতির মুহূর্ত</h2>
+    <p>
+        এই YES শুধু একটি শব্দ নয়<br>
+        এটি আমার জীবনের সবচেয়ে সুন্দর অধ্যায়
+    </p>
+</div>
+
+<script>
+/* Music */
+const bg=document.getElementById("bgMusic");
+document.body.addEventListener("click",()=>bg.play(),{once:true});
+
+/* Typing */
+const nameText="Madam Ji";
+let i=0;
+const typing=document.getElementById("typingName");
+const t=setInterval(()=>{
+  typing.innerHTML+=nameText[i++];
+  if(i>=nameText.length) clearInterval(t);
+},180);
+
+/* Pages */
+function goPage(n){
+  document.querySelectorAll(".page").forEach(p=>p.classList.add("hidden"));
+  document.getElementById("page"+n).classList.remove("hidden");
+  if(n===4) startCountdown();
+}
+
+/* Countdown */
+function startCountdown(){
+  setInterval(()=>{
+    const v=new Date("Feb 14, 2026").getTime();
+    const d=v-new Date().getTime();
+    countdown.innerHTML=
+      Math.floor(d/86400000)+"d "+
+      Math.floor(d/3600000)%24+"h "+
+      Math.floor(d/60000)%60+"m "+
+      Math.floor(d/1000)%60+"s";
+  },1000);
+}
+
+/* Heartbeat sound using Web Audio */
+const audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+function playHeartbeat(){
+  const o=audioCtx.createOscillator();
+  const g=audioCtx.createGain();
+  o.frequency.value=60;
+  o.type="sine";
+  g.gain.setValueAtTime(0.3,audioCtx.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.25);
+  o.connect(g);g.connect(audioCtx.destination);
+  o.start();o.stop(audioCtx.currentTime+0.25);
+}
+
+/* Envelope unlock */
+let beats=0;
+function heartbeatUnlock(){
+  playHeartbeat();
+  beats++;
+  document.getElementById("lockText").innerText="Heartbeat "+beats+" / 3";
+  document.getElementById("env").style.transform="scale(1.08)";
+  setTimeout(()=>document.getElementById("env").style.transform="scale(1)",200);
+  if(beats>=3){
+    document.getElementById("env").classList.add("open");
+    setTimeout(()=>{
+      document.getElementById("finalMessage").classList.add("show");
+      setTimeout(()=>goPage(7),9000);
+    },1200);
+  }
+}
+</script>
+
+</body>
+</html>
